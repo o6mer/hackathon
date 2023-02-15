@@ -125,6 +125,9 @@ const Popup = () => {
     setSelectAll(event.target.checked);
   };
 
+  const checkedProfiles = profiles.filter((profile) => profile.checked && profile.name !== "Select All");
+  const count = checkedProfiles.length;
+
   const profileList = profiles.map((profile, index) => (
     <div key={index}>
       <input
@@ -163,7 +166,7 @@ const Popup = () => {
         </div>
         {shouldShowButton && (
           <div id="button-placement">
-            <button id="button">Export<br/>to<br/>Outreach</button>
+            <button id="button">Export<br/>{count > 0 && `${count} selected`} to<br/>Outreach</button>
           </div>
         )}
       </div>
