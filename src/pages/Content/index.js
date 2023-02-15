@@ -1,55 +1,33 @@
-import { printLine } from './modules/print';
+import { handleLinkedin } from './modules/linkedinScript';
+import { handleSalesNavigator } from './modules/salesNavigatorScript';
 const $ = require('jquery');
 
-const navElement = $(`
-    <div>
-        <button>export</button>
-    </div>
-`);
-
 window.addEventListener('load', myMain, false);
+window.addEventListener('popstate', myMain);
 
 function myMain(evt) {
   var jsInitChecktimer = setInterval(checkForJS_Finish, 111);
 
   function checkForJS_Finish() {
-    if (document.querySelector('[data-x-search-result="LEAD"]')) {
+    //linkedin sales navigator leads page
+    if (
+      document.querySelector(
+        '#content-main > div.flex > div.full-width > div.container-plain-no-border-radius.p0.flex-column._sticky-nav_1igybl._remove-left-box-shadow_1igybl'
+      )
+    ) {
       clearInterval(jsInitChecktimer);
-
-      const navBar = $('._sticky-nav_1igybl');
-      navBar.append(navElement);
-
-      const exportButton = navElement.find('button');
-      exportButton.click(() => {});
-
-      const profiles = $('.artdeco-list__item');
-
-      const profilesData = [];
-      profiles.each((_, profile) => {
-        profile = $(profile);
-
-        profile.click((e) => {
-          console.log('clicked ', e);
-        });
-        profilesData.push(getDataFromProfile(profile));
-      });
-      console.log(profilesData);
+      handleSalesNavigator();
     }
 
-    function getDataFromProfile(profile) {
-      const profileElement = profile.find(
-        '[data-control-name="view_lead_panel_via_search_lead_name"]'
-      );
-      const name = profileElement.find('span').text();
-      const rawLink = profileElement.attr('href');
-
-      const linkRegex = RegExp('(?<=lead/).*?(?=,)');
-
-      const profileId = linkRegex.exec(rawLink);
-      const formatedLink = `https://www.linkedin.com/in/${profileId}`;
-      return { name, formatedLink };
+    //normal linkedin search page
+    if (
+      !document.querySelector('.search-results-loader__block') &&
+      document.querySelector('.reusable-search__result-container')
+    ) {
+      clearInterval(jsInitChecktimer);
+      handleLinkedin();
     }
   }
+  //   window.removeEventListener('load', myMain);
+  //   window.removeEventListener('popstate', myMain);
 }
-
-printLine("Using the 'printLine' function from the Print Module");
