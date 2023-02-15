@@ -41,7 +41,7 @@
 }
 
 #box-name label {
-  font-size: 15px;
+  font-size: 17px;
   color: #333333;
   background: linear-gradient(to bottom, #f4f4f4, #a5a5a5);
   display: flex;
@@ -52,10 +52,19 @@
   }
 
   #box-name input {
-    position: absolute;
+    position: relative;
     left: 0;
-     /* top:20px; */
+    top: 50px;
   }
 label{
-  margin-right: 150px;
+  margin-right: 125px;
+}
+
+#select-all{
+  margin-left: 70px;
+  margin-bottom: 20px;
+}
+
+#all-select{
+  margin-left: 70px;
 }
