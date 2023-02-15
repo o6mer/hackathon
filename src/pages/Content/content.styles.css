@@ -1,0 +1,29 @@
+input {
+  opacity: 1 !important;
+  position: static !important;
+  pointer-events: auto !important;
+  margin: 0 !important;
+}
+
+input[type='checkbox'] {
+  cursor: pointer;
+}
+
+.control-panel {
+  display: flex;
+  background-color: #fff;
+  padding: 8px;
+}
+
+.select_all-button {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 300ms;
+}
+
+.select_all-button:hover {
+  background-color: #ccc;
+}
