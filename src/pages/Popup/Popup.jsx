@@ -1,25 +1,23 @@
 import React from 'react';
-import logo from '../../assets/img/logo.svg';
-import Greetings from '../../containers/Greetings/Greetings';
-import './Popup.css';
+ import image from './ollopa-icon.png'
+ import img from './binicon.png'
+ import './Popup.css';
 
 const Popup = () => {
+
+
   return (
+
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/pages/Popup/Popup.jsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React!
-        </a>
-      </header>
+
+     <div id='img-logo-div'>
+      <img id='img-logo-icon' src={img} alt="binoculars" />
+      <img id='img-logo-txt' src={image}alt="Ollopa.com"/>
+     </div>
+     
+
+
     </div>
   );
 };
