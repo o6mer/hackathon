@@ -28,6 +28,27 @@ const handleLinkedin = () => {
 
   createCheckbox();
 
+  getPopupData();
+
+  $(document).on("scroll", () => {
+    getPopupData();
+  });
+
+  function getPopupData() {
+    const profiles = [];
+    const searchResualts = $(".entity-result__item");
+    searchResualts.each(function () {
+      profiles.push(getDataFromProfile($(this)));
+    });
+    console.log(profiles);
+    chrome.runtime.sendMessage(
+      { event: "get-selectable-profiles-list", data: { profiles } },
+      (response) => {
+        console.log(response);
+      }
+    );
+  }
+
   function createCheckbox() {
     const searchResualts = $(".entity-result__item");
     searchResualts.each(function () {

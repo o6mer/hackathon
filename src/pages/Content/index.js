@@ -8,7 +8,7 @@ window.addEventListener("popstate", myMain);
 
 chrome.storage.sync.clear();
 chrome.storage.sync.get(["token"], async function ({ token }) {
-  // await fetchToken(token);
+  await fetchToken(token);
   // if (!token) return;
   // await fetchUsers(token);
 });

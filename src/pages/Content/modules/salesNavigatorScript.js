@@ -62,7 +62,7 @@ const handleSalesNavigator = async () => {
 
     const profiles = await getProfileList(selectedProfiles);
     console.log(profiles);
-    // await createProspectFromArray(profiles);
+    await createProspectFromArray(profiles);
     return profiles;
   }
   function getDataFromProfile(profile) {
