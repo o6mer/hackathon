@@ -1,15 +1,16 @@
 const $ = require('jquery');
 
+const exportButtonElement = `
+        <button class="export-button">export</button>
+
+`;
+
 const navElement = $(`
-    <div style="">
-        <button >export</button>
+    <div class="nav-element">
     </div>
 `);
-navElement.css({
-  display: 'flex',
-  padding: '16px',
-  alignItems: 'center',
-});
+
+navElement.append(exportButtonElement);
 
 const checkboxElement = $(
   ` <div>
@@ -27,9 +28,10 @@ const controlPanelElement = $(
             <input type="checkbox" />
             <p>Select All</p>
         </div>
-        <button class="export-button">export</button>
     </div>
 `
 );
+
+controlPanelElement.append(exportButtonElement);
 
 export { navElement, checkboxElement, controlPanelElement };

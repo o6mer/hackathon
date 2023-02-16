@@ -43,7 +43,7 @@ const handleSalesNavigator = () => {
 
     const profileId = linkRegex.exec(rawLink);
     const formatedLink = `https://www.linkedin.com/in/${profileId}`;
-    return { name, title, company, formatedLink };
+    return { name, title, company, link: formatedLink };
   }
   return;
 };

@@ -9,6 +9,12 @@ input[type='checkbox'] {
   cursor: pointer;
 }
 
+.nav-element {
+  display: flex;
+  padding: 16px;
+  align-items: center;
+}
+
 .control-panel {
   display: flex;
   background-color: #fff;
