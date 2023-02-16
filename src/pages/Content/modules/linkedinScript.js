@@ -1,4 +1,4 @@
-import axios from "axios";
+import { createProspectFromArray } from "./api";
 import { checkboxElement, controlPanelElement } from "./components";
 const $ = require("jquery");
 
@@ -9,19 +9,34 @@ const handleLinkedin = () => {
   const container = $(".search-results-container");
 
   let isAllSelected = true;
-  selectAllButton.on("click", () => {
-    const allProfiles = container.find('input[type="checkbox"]');
-    allProfiles.each(function () {
-      $(this).prop("checked", isAllSelected);
-    });
-    isAllSelected = !isAllSelected;
-  });
+  selectAllButton.on("click", onSelectAllCicked);
 
-  exportButton.on("click", async () => {
-    const selectedProfiles = container.find(
+  let selectedProfiles = container.find(
+    'input[type="checkbox"]:checkbox:checked'
+  );
+  container.on("click", () => {
+    selectedProfiles = container.find(
       'input[type="checkbox"]:checkbox:checked'
     );
+    exportButton.prop("disabled", selectedProfiles.length === 0);
+  });
+  exportButton.prop("disabled", selectedProfiles.length === 0);
 
+  exportButton.on("click", onExportClicked);
+
+  container.prepend(controlPanelElement);
+
+  createCheckbox();
+
+  function createCheckbox() {
+    const searchResualts = $(".entity-result__item");
+    searchResualts.each(function () {
+      $(this).css({ width: "100%", display: "flex", alignItems: "center" });
+      $(this).prepend(checkboxElement.html());
+    });
+  }
+
+  async function onExportClicked() {
     const profiles = [];
     selectedProfiles.each(async function () {
       const selectedProfile = $(this).closest(".entity-result__item");
@@ -32,31 +47,17 @@ const handleLinkedin = () => {
 
       profiles.push(profileData);
     });
-    chrome.storage.sync.get(["token"], async function ({ token }) {
-      try {
-        const res = await axios.post(
-          "http://localhost:4000/api/create-prospect",
-          {
-            profiles,
-            tokenHeader: `Bearer ${token.access_token}`,
-          }
-        );
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
+    await createProspectFromArray(profiles);
+  }
+
+  function onSelectAllCicked() {
+    const allProfiles = container.find('input[type="checkbox"]');
+
+    allProfiles.each(function () {
+      $(this).prop("checked", isAllSelected);
     });
-
-    console.log(profiles);
-  });
-
-  container.prepend(controlPanelElement);
-
-  const searchResualts = $(".entity-result__item");
-  searchResualts.each(function () {
-    $(this).css({ width: "100%", display: "flex", alignItems: "center" });
-    $(this).prepend(checkboxElement.html());
-  });
+    isAllSelected = !isAllSelected;
+  }
 
   function getDataFromProfile(profile) {
     // const profileElement = profile.find('.artdeco-entity-lockup__content');

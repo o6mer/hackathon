@@ -1,43 +1,15 @@
-import axios from "axios";
+import { fetchToken } from "./modules/api";
 import { handleLinkedin } from "./modules/linkedinScript";
 import { handleSalesNavigator } from "./modules/salesNavigatorScript";
-const $ = require("jquery");
 
 window.addEventListener("load", myMain, false);
 window.addEventListener("popstate", myMain);
 
-//
 // chrome.storage.sync.clear();
 
-chrome.storage.sync.get(["token"], async function ({ token }) {
-  const linkRegex = RegExp("(?<=code=).*$");
-  const code = linkRegex.exec(window.location.search)?.at(0);
-  try {
-    if (token) return;
-
-    if (!code) {
-      const client_id = "plgTJ1AIqNjv0IockolxdjhWx70vil~Gd1aTql9S49L_";
-      const redirect_uri = "https://www.linkedin.com/search/";
-      const url = `https://api.outreach.io/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code&scope=prospects.write`;
-
-      return window.location.replace(url);
-    } else {
-      const { data } = await axios.post("http://localhost:4000/api/get-token", {
-        code,
-      });
-      console.log(data);
-      chrome.storage.sync.set({ token: data.data }).then(() => {
-        console.log("Value is set to " + token);
-      });
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
+fetchToken();
 
 function myMain(evt) {
-  // const code = new URLSearchParams(window.location.search);
-
   var jsInitChecktimer = setInterval(checkForJS_Finish, 111);
 
   function checkForJS_Finish() {
@@ -64,6 +36,3 @@ function myMain(evt) {
 
 // idScript.remove();
 //then cleanup
-
-// window.removeEventListener('load', myMain);
-// window.removeEventListener('popstate', myMain);

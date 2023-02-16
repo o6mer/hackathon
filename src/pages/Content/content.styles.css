@@ -1,11 +1,11 @@
-input {
+.search-results-container input {
   opacity: 1 !important;
   position: static !important;
   pointer-events: auto !important;
   margin: 0 !important;
 }
 
-input[type='checkbox'] {
+input[type="checkbox"] {
   cursor: pointer;
 }
 
