@@ -74,6 +74,9 @@ label{
 
 #all-select{
   margin: auto;
+  width: 60px;
+  height: 35px;
+  background-color: cornsilk;
 }
 
 #button {
