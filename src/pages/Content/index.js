@@ -1,24 +1,24 @@
-import { fetchToken } from "./modules/api";
+import { fetchToken, fetchUsers } from "./modules/api";
 import { handleLinkedin } from "./modules/linkedinScript";
 import { handleSalesNavigator } from "./modules/salesNavigatorScript";
+const $ = require("jquery");
 
 window.addEventListener("load", myMain, false);
 window.addEventListener("popstate", myMain);
 
-// chrome.storage.sync.clear();
-
-fetchToken();
+chrome.storage.sync.clear();
+chrome.storage.sync.get(["token"], async function ({ token }) {
+  // await fetchToken(token);
+  // if (!token) return;
+  // await fetchUsers(token);
+});
 
 function myMain(evt) {
   var jsInitChecktimer = setInterval(checkForJS_Finish, 111);
 
   function checkForJS_Finish() {
     //linkedin sales navigator leads page
-    if (
-      document.querySelector(
-        "#content-main > div.flex > div.full-width > div.container-plain-no-border-radius.p0.flex-column._sticky-nav_1igybl._remove-left-box-shadow_1igybl"
-      )
-    ) {
+    if (document.querySelector('[data-x-search-result="LEAD"]')) {
       clearInterval(jsInitChecktimer);
       handleSalesNavigator();
     }

@@ -1,20 +1,27 @@
-import React from 'react';
- import image from './ollopa-icon.png'
- import img from './binicon.png'
- import './Popup.css';
-import { useState } from 'react';
-
-
+import React, { useEffect } from "react";
+import image from "./ollopa-icon.png";
+import img from "./binicon.png";
+import "./Popup.css";
+import { useState } from "react";
 
 const Popup = () => {
-  const [profiles, setProfiles] = useState([
-    { name: 'omer levy', jobTitle: 'web developer', linkedin: 'www.linkedin.com', checked: false },
-    { name: 'nati arbiv', jobTitle: 'backend developer', linkedin: 'www.linkedin.com', checked: false },
-    { name: 'omer liraz', jobTitle: 'fullstack developer', linkedin: 'www.linkedin.com', checked: false },
-    { name: 'asaf axelrose', jobTitle: 'english developer', linkedin: 'www.linkedin.com', checked: false },
-  ]);
+  const [profiles, setProfiles] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
-// const [indeterminate,setIndeterminate]= useState(false);
+
+  useEffect(() => {
+    chrome.runtime.onMessage.addListener(async function (
+      request,
+      sender,
+      sendResponse
+    ) {
+      console.log(request);
+      setProfiles([...request.data.profiles]);
+      sendResponse({ message: "success" });
+      sendResponse({ sup: "supp" });
+    });
+  }, []);
+
+  // const [indeterminate,setIndeterminate]= useState(false);
   const handleCheckboxChange = (index) => {
     const newProfiles = [...profiles];
     newProfiles[index].checked = !newProfiles[index].checked;
@@ -36,7 +43,7 @@ const Popup = () => {
       checked: event.target.checked,
     }));
     setProfiles(newProfiles);
-    
+
     const allChecked = newProfiles.every((profile) => profile.checked);
     const someChecked = newProfiles.some((profile) => profile.checked);
     setSelectAll(allChecked);
@@ -47,28 +54,11 @@ const Popup = () => {
     }
   };
 
-  const checkedProfiles = profiles.filter((profile) => profile.checked && profile.name !== "Select All");
+  const checkedProfiles = profiles.filter(
+    (profile) => profile.checked && profile.name !== "Select All"
+  );
   const count = checkedProfiles.length;
-// !selectAll && count > 0 ? handleSelectAllChange=indeterminate : null
-  const profileList = profiles.map((profile, index) => (
-    <div key={index}>
-      <input
-        type="checkbox"
-         checked={profile.checked}
-        onChange={() => handleCheckboxChange(index)}
-        className="default:ring-2 ..."
-        id={profile.name}
-        // indeterminate={!selectAll && count > 0}
-        
-      />
-      <label htmlFor={profile.name}>
-        {profile.name} <br />
-        {profile.jobTitle} <br />
-        {profile.linkedin}
-        <br/>
-      </label>
-    </div>
-  ));
+  // !selectAll && count > 0 ? handleSelectAllChange=indeterminate : null
 
   const shouldShowButton = profiles.some((profile) => profile.checked);
 
@@ -80,29 +70,59 @@ const Popup = () => {
       </div>
 
       <div id="Part2nd">
-
         <div id="box-name">
-
           <div>
-
-            <input type="checkbox"  checked={selectAll} onChange={handleSelectAllChange} id="select-all" />
+            <input
+              type="checkbox"
+              checked={selectAll}
+              onChange={handleSelectAllChange}
+              id="select-all"
+            />
             <label id="all-select" htmlFor="select-all">
               Select All
             </label>
-
           </div>
-          {profileList}
+          {profiles.map((profile, index) => (
+            <div key={index}>
+              <input
+                type="checkbox"
+                checked={profile.checked}
+                onChange={() => handleCheckboxChange(index)}
+                className="default:ring-2 ..."
+                id={profile.name}
+                // indeterminate={!selectAll && count > 0}
+              />
+              <label htmlFor={profile.name}>
+                {profile.name} <br />
+                {profile.title} <br />
+                {profile.link}
+                <br />
+              </label>
+            </div>
+          ))}
         </div>
 
         {shouldShowButton && (
           <div id="button-placement">
-            <button id="button">Export<br/>{count > 0 && `${count} selected to`}<br/>Outreach</button>
+            <button id="button">
+              Export
+              <br />
+              {count > 0 && `${count} selected to`}
+              <br />
+              Outreach
+            </button>
           </div>
         )}
 
-{shouldShowButton && (
+        {shouldShowButton && (
           <div id="button-placement2">
-            <button id="button2">Download<br/>{count > 0 && `${count} selected`}<br/>information</button>
+            <button id="button2">
+              Download
+              <br />
+              {count > 0 && `${count} selected`}
+              <br />
+              information
+            </button>
           </div>
         )}
       </div>
