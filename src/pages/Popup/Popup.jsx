@@ -4,6 +4,7 @@ import img from "./binicon.png";
 import "./Popup.css";
 import { useState } from "react";
 
+
 const Popup = () => {
   const [profiles, setProfiles] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
@@ -13,9 +14,9 @@ const Popup = () => {
       request,
       sender,
       sendResponse
-    ) {
+    ){
       console.log(request);
-      setProfiles([...request.data.profiles]);
+      setProfiles([...request.data.selectableProfiles]);
       sendResponse({ message: "success" });
       sendResponse({ sup: "supp" });
     });
@@ -90,12 +91,12 @@ const Popup = () => {
                 onChange={() => handleCheckboxChange(index)}
                 className="default:ring-2 ..."
                 id={profile.name}
-                // indeterminate={!selectAll && count > 0}
+              // indeterminate={!selectAll && count > 0}
               />
               <label htmlFor={profile.name}>
                 {profile.name} <br />
                 {profile.title} <br />
-                {profile.link}
+                <a href={profile.link}>Linkedin</a>
                 <br />
               </label>
             </div>
