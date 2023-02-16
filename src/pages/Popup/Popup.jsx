@@ -49,7 +49,7 @@ const Popup = () => {
 
   const checkedProfiles = profiles.filter((profile) => profile.checked && profile.name !== "Select All");
   const count = checkedProfiles.length;
-
+// !selectAll && count > 0 ? handleSelectAllChange=indeterminate : null
   const profileList = profiles.map((profile, index) => (
     <div key={index}>
       <input
@@ -65,7 +65,7 @@ const Popup = () => {
         {profile.name} <br />
         {profile.jobTitle} <br />
         {profile.linkedin}
-        <br />
+        <br/>
       </label>
     </div>
   ));
