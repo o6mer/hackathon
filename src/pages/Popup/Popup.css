@@ -1,51 +1,5 @@
-/* .App {
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  text-align: center;
-  height: 100%;
-  padding: 10px;
-  background-color: #282c34;
-}
-
-.App-logo {
-  height: 30vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
-
 #img-logo-div{
-  background-color: rgb(212, 207, 207);
+  background-color: rgb(41, 87, 21);
   margin: 0%;
   display: flex;
   flex-direction: row;
@@ -53,7 +7,7 @@
 
 #img-logo-icon{
   width: 23px;
-  height: 23px;
+  height: 25px;
 }
 
 @keyframes logo-spin {
@@ -73,6 +27,91 @@
 
 #img-logo-txt{
   width: 150px;
-  height: 25px;
+  height: 30px;
 }
 
+#Part2nd{
+  background: linear-gradient(to bottom, #292424, #764603);
+}
+
+#box-name{
+  display: flex;
+  flex-direction: column;
+}
+
+#box-name label {
+  font-size: 17px;
+  color: #333333;
+  background: linear-gradient(to bottom, #f4f4f4, #a5a5a5);
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 5px;
+  }
+
+  #box-name input {
+    position: relative;
+    left: 0;
+    top: 50px;
+  }
+label{
+  margin-right: 125px;
+}
+
+#select-all{
+  margin-left: 70px;
+  margin-bottom: 20px;
+}
+
+#all-select{
+  margin-left: 70px;
+}
+
+#button {
+  background: linear-gradient(to bottom, #00c6ff, #0072ff);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+#button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+#button-placement{
+  position: absolute;
+  right: 5px;
+  top: 250px;
+}
+
+
+#button2 {
+  background: linear-gradient(to bottom, #00c6ff, #0072ff);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  width: 113px;
+}
+
+#button2:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+#button-placement2{
+  position: absolute;
+  right: 5px;
+  top: 350px;
+}
